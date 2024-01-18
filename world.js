@@ -82,6 +82,7 @@ var createWorldCreator = function() {
         world.elapsedTime = 0.0;
         world.maxWaitTime = 0.0;
         world.avgWaitTime = 0.0;
+        world.seed = options.seed;
         world.challengeEnded = false;
 
         var recalculateStats = function() {

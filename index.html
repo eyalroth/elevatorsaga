@@ -78,6 +78,12 @@
             <span class="emphasis-color" style="display: inline-block; width: 22px; text-align: center">{timeScale}</span>
             <i class="fa fa-plus-square timescale_increase unselectable"></i>
         </h3>
+        <input id="seed" class="right" type="number" min="1" value="{seed}"
+            placeholder="Positive number" 
+            style="width: 100px; margin: 11px 10px 0px 10px" />
+        <div class="right" style="margin-top: 2px">
+            <h4>Seed:</h3>
+        </div>
     </script>
 
     <script type="text/template" id="codestatus-template">
@@ -157,12 +163,13 @@
             <div class="innerworld">
             </div>
             <div class="statscontainer">
-                <div style="top: 20px"><span class="key">Transported</span><span class="value transportedcounter"></span></div>
-                <div style="top: 40px"><span class="key">Elapsed time</span><span class="value elapsedtime"></span></div>
-                <div style="top: 60px"><span class="key">Transported/s</span><span class="value transportedpersec"></span></div>
-                <div style="top: 80px"><span class="key">Avg waiting time</span><span class="value avgwaittime"></span></div>
-                <div style="top: 100px"><span class="key">Max waiting time</span><span class="value maxwaittime"></span></div>
-                <div style="top: 120px"><span class="key" title="Number of floors that have been travelled by elevators">Moves</span><span class="value movecount"></span></div>
+                <div style="top: 12px"><span class="key">Transported</span><span class="value transportedcounter"></span></div>
+                <div style="top: 32px"><span class="key">Elapsed time</span><span class="value elapsedtime"></span></div>
+                <div style="top: 52px"><span class="key">Transported/s</span><span class="value transportedpersec"></span></div>
+                <div style="top: 72px"><span class="key">Avg waiting time</span><span class="value avgwaittime"></span></div>
+                <div style="top: 92px"><span class="key">Max waiting time</span><span class="value maxwaittime"></span></div>
+                <div style="top: 112px"><span class="key" title="Number of floors that have been travelled by elevators">Moves</span><span class="value movecount"></span></div>
+                <div style="top: 132px"><span class="key">Seed</span><span class="value seed"></span></div>
             </div>
         </div>
 

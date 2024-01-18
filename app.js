@@ -152,7 +152,10 @@ $(function() {
     app.currentChallengeIndex = 0;
 
     app.startStopOrRestart = function() {
-        if(app.world.challengeEnded) {
+        if (app.world.elapsedTime === 0) {
+            app.startChallenge(app.currentChallengeIndex);
+            app.worldController.setPaused(!app.worldController.isPaused);
+        } else if(app.world.challengeEnded) {
             app.startChallenge(app.currentChallengeIndex);
         } else {
             app.worldController.setPaused(!app.worldController.isPaused);
@@ -165,7 +168,19 @@ $(function() {
             // TODO: Investigate if memory leaks happen here
         }
         app.currentChallengeIndex = challengeIndex;
-        app.world = app.worldCreator.createWorld(challenges[challengeIndex].options);
+        
+        const customSeed = $challenge.find("#seed").get(0)?.value;
+        if (customSeed) {
+            try {
+                setRandomSeed(customSeed)
+            } catch (e) {
+                editor.trigger("usercode_error", e);
+                return;
+            }
+        }
+        const seed = getRandomSeed();
+
+        app.world = app.worldCreator.createWorld({ ...challenges[challengeIndex].options, seed });
         window.world = app.world;
 
         clearAll([$world, $feedback]);
@@ -186,7 +201,9 @@ $(function() {
                 if(challengeStatus) {
                     presentFeedback($feedback, feedbackTempl, app.world, "Success!", "Challenge completed", createParamsUrl(params, { challenge: (challengeIndex + 2)}));
                 } else {
-                    presentFeedback($feedback, feedbackTempl, app.world, "Challenge failed", "Maybe your program needs an improvement?", "");
+                    presentFeedback($feedback, feedbackTempl, app.world, "Challenge failed", 
+                    `Maybe your program needs an improvement?<br/><br/>To reproduce, use the seed: ${app.world.seed}`,
+                    "");
                 }
             }
         });
