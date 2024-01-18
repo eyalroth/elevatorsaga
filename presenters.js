@@ -25,7 +25,8 @@ function presentStats($parent, world) {
         elem_transportedpersec = $parent.find(".transportedpersec").get(0),
         elem_avgwaittime = $parent.find(".avgwaittime").get(0),
         elem_maxwaittime = $parent.find(".maxwaittime").get(0),
-        elem_movecount = $parent.find(".movecount").get(0);
+        elem_movecount = $parent.find(".movecount").get(0),
+        elem_seed = $parent.find(".seed").get(0);
 
     world.on("stats_display_changed", function updateStats() {
         elem_transportedcounter.textContent = world.transportedCounter;
@@ -34,16 +35,19 @@ function presentStats($parent, world) {
         elem_avgwaittime.textContent = world.avgWaitTime.toFixed(1) + "s";
         elem_maxwaittime.textContent = world.maxWaitTime.toFixed(1) + "s";
         elem_movecount.textContent = world.moveCount;
+        elem_seed.textContent = world.seed;
     });
     world.trigger("stats_display_changed");
 };
 
 function presentChallenge($parent, challenge, app, world, worldController, challengeNum, challengeTempl) {
+    const previousSeed = $parent.find("#seed").get(0)?.value ?? "";
     var $challenge = $(riot.render(challengeTempl, {
         challenge: challenge,
         num: challengeNum,
         timeScale: worldController.timeScale.toFixed(0) + "x",
-        startButtonText: world.challengeEnded ? "<i class='fa fa-repeat'></i> Restart" : (worldController.isPaused ? "Start" : "Pause")
+        startButtonText: world.challengeEnded ? "<i class='fa fa-repeat'></i> Restart" : (worldController.isPaused ? "Start" : "Pause"),
+        seed: previousSeed,
     }));
     $parent.html($challenge);
 
